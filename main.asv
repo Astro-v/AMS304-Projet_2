@@ -12,4 +12,5 @@ global dens;dens = 20;
 [s,c] = mesh(R,dens,k);
 
 %% 1. Second membre
+
 b = secondMembre(s);
