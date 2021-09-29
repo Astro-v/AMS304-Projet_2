@@ -13,3 +13,6 @@ global dens;dens = 20;
 
 %% 1. Second membre
 b = secondMembre(s);
+
+%% 2. Matrice A
+A = matriceA(s);
