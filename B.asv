@@ -1,0 +1,6 @@
+function [y]=B(a,b,x)  
+    dj1=norm(b-x);
+    dj=norm(x-a);
+    taue=(b-a)/norm(b-a);
+    y=(-1/(2*pi))*(dj1*taue'
+end

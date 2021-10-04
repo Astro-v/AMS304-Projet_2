@@ -15,6 +15,6 @@ function [I] = quadratureB(n,a,b,f)
    I = 0;
    for ind=[1:1:n]
        y = ksi(ind).*((b-a)/2)+(b+a)/2;
-       I = I +  norm(b-a)*w(ind)*f(y)/2.0;
+       I = I +  norm(b-a)*w(ind)*f(y(1),y(2))/2.0;
    end
 end

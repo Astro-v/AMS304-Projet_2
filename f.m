@@ -1,4 +1,4 @@
-function [y]=f(x)
+function [y]=f(x,y)
     global k;
-    y = besselh(0,k*x);
+    y = besselh(0,k*norm(x-y));
 end

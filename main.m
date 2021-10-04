@@ -7,7 +7,7 @@
 %% 0. Initialisation
 global k;k = 2*pi;
 global R;R = 1;
-global dens;dens = 20;
+global dens;dens = 10;
 
 [s,c] = mesh(R,dens,k);
 
@@ -15,7 +15,13 @@ global dens;dens = 20;
 b = secondMembre(s);
 
 %% 2. Matrice A
-A = matriceA(s);
+A = matA(s);
 
-%% 3. Second membre
-b=secondMembre(s);
+p=b\A;
+pBis=[];
+for m = [1:1:size(c,2)]
+    pBis = [pBis trace(k,R,c(1,m),c(2,m))];
+end
+
+p(1)
+pBis(1)
