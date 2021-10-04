@@ -16,3 +16,6 @@ b = secondMembre(s);
 
 %% 2. Matrice A
 A = matriceA(s);
+
+%% 3. Second membre
+b=secondMembre(s);
