@@ -1,9 +1,6 @@
-function [b,c]=mesh(R,dens,k)
-    % R: rayon
-    % dens: nombre de points par lambda*
-    % k: nombre d'onde
-    % [x,y,T]= mesh(1,20,1)
-    N = floor(dens*2*k*R+1);
+function [b,c]=mesh()
+    global N;
+    global R;
     pas=2*pi/N;
     theta = [-pi:pas:pi];
     x = R*cos(theta);

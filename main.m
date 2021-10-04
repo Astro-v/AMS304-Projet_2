@@ -1,27 +1,54 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%                        TP1 AMS304                        %%%%%%%%%
-%%%%%%%%% Représentation intégrale pour l’équation de Helmholtz 2D %%%%%%%%%
+%%%%%%%%%                        TP2 AMS304                        %%%%%%%%%
+%%%%%%%%%    Equation intégrale pour l’équation de Helmholtz 2D    %%%%%%%%%
 %%%%%%%%%               Farah CHAABA & Valentin MICHEL             %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+clear();
 
 %% 0. Initialisation
 global k;k = 2*pi;
 global R;R = 1;
-global dens;dens = 10;
+global dens;dens = 20;
+global N; N = floor(dens*2*k*R+1);
 
-[s,c] = mesh(R,dens,k);
+[s,c] = mesh();
+
+% Quadrature
+global w; w = [128/225,(322+13*sqrt(70))/900,(322+13*sqrt(70))/900,(322-13*sqrt(70))/900,(322-13*sqrt(70))/900];
+global ksi; ksi = [0,+1/3*sqrt(5-2*sqrt(10/7)),-1/3*sqrt(5-2*sqrt(10/7)),+1/3*sqrt(5+2*sqrt(10/7)),-1/3*sqrt(5+2*sqrt(10/7))];
+global n; n=length(ksi);
 
 %% 1. Second membre
-b = secondMembre(s);
+b = B(s);
 
 %% 2. Matrice A
-A = matA(s);
+a = A(s);
 
-p=b\A;
-pBis=[];
-for m = [1:1:size(c,2)]
-    pBis = [pBis trace(k,R,c(1,m),c(2,m))];
+%% 5. Trace p
+p = a\b;
+
+figure()
+plot(real(-1i.*log((c(1,:)+1i.*c(2,:))./R)),real(p),real(-1i.*log((c(1,:)+1i.*c(2,:))./R)),imag(p))
+legend({'Partie réel de la trace de p','Partie réel de la trace de p'})
+xlabel('\theta')
+ylabel('Trace de p')
+
+%% 6. Validation
+pAnalytique = zeros(N,1);
+for i=[1:1:N]
+    pAnalytique(i) = traceAnalytique(c(1,i),c(2,i));
 end
 
-p(1)
-pBis(1)
+figure()
+plot(real(-1i.*log((c(1,:)+1i.*c(2,:))./R)),real(pAnalytique),real(-1i.*log((c(1,:)+1i.*c(2,:))./R)),real(p))
+legend({'Partie réel de la trace de p analytique','Partie réel de la trace de p'})
+xlabel('\theta')
+ylabel('Trace de p')
+
+figure()
+plot(real(-1i.*log((c(1,:)+1i.*c(2,:))./R)),imag(pAnalytique),real(-1i.*log((c(1,:)+1i.*c(2,:))./R)),imag(p))
+legend({'Partie imaginaire de la trace de p analytique','Partie imaginaire de la trace de p'})
+xlabel('\theta')
+ylabel('Trace de p')
+
